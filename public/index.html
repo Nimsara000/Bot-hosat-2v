@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>NIMA-MD Bot Control Panel</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 100px;
+    }
+    input, button {
+      padding: 10px;
+      width: 300px;
+      margin: 10px;
+    }
+    button {
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>Connect Your NIMA-MD Bot</h1>
+  <form id="connectForm">
+    <input type="text" id="sessionId" placeholder="Enter Session ID" required><br>
+    <button type="submit">Connect Bot</button>
+  </form>
+
+  <script>
+    const form = document.getElementById('connectForm');
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const sessionId = document.getElementById('sessionId').value;
+      
+      const res = await fetch('/connect-bot', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ sessionId })
+      });
+
+      const data = await res.json();
+      alert(data.message);
+    });
+  </script>
+</body>
+</html>
